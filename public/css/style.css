@@ -1,0 +1,112 @@
+/*
+Inventory Management System
+DBMS Project
+Author: Kainat Jameel
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+}
+
+.main-header {
+    background-color: #1f2937;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.main-header h1 {
+    margin: 0 0 15px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #374151;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+.welcome {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.dashboard-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.dashboard-links a {
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 5px;
+}
+
+.dashboard-links a:hover {
+    background-color: #1d4ed8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #e5e7eb;
+}
+
+tr:hover {
+    background-color: #f9fafb;
+}
+
+.main-footer {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #1f2937;
+    color: white;
+    text-align: center;
+}
+
+.main-footer p {
+    margin: 5px;
+}
