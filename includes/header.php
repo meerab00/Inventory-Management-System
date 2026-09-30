@@ -1,7 +1,9 @@
 <?php
+
 // Inventory Management System
 // DBMS Project
 // Author: Kainat Jameel
+
 ?>
 
 <!DOCTYPE html>
