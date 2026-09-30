@@ -3,21 +3,24 @@
 // Inventory Management System
 // DBMS Project
 // Author: Kainat Jameel
-// PostgreSQL Database Connection
 
-$host = "localhost";
-$port = "5432";
-$dbname = "inventory_management";
-$username = "postgres";
-$password = "YOUR_POSTGRES_PASSWORD";
+$localConfig = __DIR__ . "/database.local.php";
+
+if (!file_exists($localConfig)) {
+    die("Database configuration file is missing.");
+}
+
+$config = require $localConfig;
 
 $conn = pg_connect(
-    "host=$host port=$port dbname=$dbname user=$username password=$password"
+    "host={$config['host']}
+     port={$config['port']}
+     dbname={$config['dbname']}
+     user={$config['username']}
+     password={$config['password']}"
 );
 
 if (!$conn) {
     die("Database connection failed.");
 }
-
 ?>
-
