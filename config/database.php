@@ -18,4 +18,6 @@ $conn = pg_connect(
 if (!$conn) {
     die("Database connection failed.");
 }
+
 ?>
+
