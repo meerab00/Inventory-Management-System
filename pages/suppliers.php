@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         if ($name==='' || strlen($name)>120 || ($email!=='' && !filter_var($email,FILTER_VALIDATE_EMAIL)) || $id===false) supplier_redirect('Enter a valid supplier name and email.','error');
         if ($id) $saved=pg_query_params($conn,'UPDATE suppliers SET supplier_name=$1,phone=$2,email=$3,address=$4 WHERE supplier_id=$5',[$name,$phone ?: null,$email ?: null,$address ?: null,$id]);
         else $saved=pg_query_params($conn,'INSERT INTO suppliers (supplier_name,phone,email,address) VALUES ($1,$2,$3,$4)',[$name,$phone ?: null,$email ?: null,$address ?: null]);
-        supplier_redirect($saved ? ($id ? 'Supplier updated.' : 'Supplier added.') : 'Could not save supplier.','success' === 'no' ? 'error' : ($saved ? 'success' : 'error'));
+        supplier_redirect($saved ? ($id ? 'Supplier updated.' : 'Supplier added.') : 'Could not save supplier.', $saved ? 'success' : 'error');
     }
 }
 $edit=null;
