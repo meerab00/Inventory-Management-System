@@ -1,26 +1,44 @@
 <?php
-
-// Inventory Management System
-// DBMS Project
+// Inventory Management System - PostgreSQL connection
 // Author: Kainat Jameel
 
-$localConfig = __DIR__ . "/database.local.php";
+$config = [
+    'host' => getenv('DB_HOST') ?: '',
+    'port' => getenv('DB_PORT') ?: '5432',
+    'dbname' => getenv('DB_NAME') ?: '',
+    'username' => getenv('DB_USER') ?: '',
+    'password' => getenv('DB_PASSWORD') ?: '',
+    'sslmode' => getenv('DB_SSLMODE') ?: 'prefer',
+];
 
-if (!file_exists($localConfig)) {
-    die("Database configuration file is missing.");
+// Local development may use an untracked config file.
+$localConfig = __DIR__ . '/database.local.php';
+if (file_exists($localConfig)) {
+    $local = require $localConfig;
+    if (is_array($local)) {
+        $config = array_merge($config, $local);
+    }
 }
 
-$config = require $localConfig;
+foreach (['host', 'dbname', 'username', 'password'] as $required) {
+    if ($config[$required] === '') {
+        http_response_code(500);
+        exit('Database configuration is incomplete. Set the required environment variables.');
+    }
+}
 
-$conn = pg_connect(
-    "host={$config['host']}
-     port={$config['port']}
-     dbname={$config['dbname']}
-     user={$config['username']}
-     password={$config['password']}"
+$connString = sprintf(
+    'host=%s port=%s dbname=%s user=%s password=%s sslmode=%s',
+    str_replace(['\\', "'"], ['\\\\', "\\'"], $config['host']),
+    $config['port'],
+    str_replace(['\\', "'"], ['\\\\', "\\'"], $config['dbname']),
+    str_replace(['\\', "'"], ['\\\\', "\\'"], $config['username']),
+    str_replace(['\\', "'"], ['\\\\', "\\'"], $config['password']),
+    $config['sslmode']
 );
 
+$conn = @pg_connect($connString);
 if (!$conn) {
-    die("Database connection failed.");
+    http_response_code(500);
+    exit('Database connection failed. Check the hosting database settings.');
 }
-?>
