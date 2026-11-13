@@ -13,22 +13,19 @@ $config = [
 
 // Hostless provides DATABASE_URL. Use it when individual DB_* values are not set.
 $databaseUrl = getenv('DATABASE_URL') ?: '';
-if ($databaseUrl !== '' && (
-    $config['host'] === '' || $config['dbname'] === '' ||
-    $config['username'] === '' || $config['password'] === ''
-)) {
+if ($databaseUrl !== '') {
     $parts = parse_url($databaseUrl);
     if (is_array($parts)) {
         $query = [];
         if (!empty($parts['query'])) {
             parse_str($parts['query'], $query);
         }
-        $config['host'] = $config['host'] ?: ($parts['host'] ?? '');
-        $config['port'] = ($config['port'] !== '5432') ? $config['port'] : (string)($parts['port'] ?? '5432');
-        $config['dbname'] = $config['dbname'] ?: ltrim($parts['path'] ?? '', '/');
-        $config['username'] = $config['username'] ?: rawurldecode($parts['user'] ?? '');
-        $config['password'] = $config['password'] ?: rawurldecode($parts['pass'] ?? '');
-        $config['sslmode'] = getenv('DB_SSLMODE') ?: ($query['sslmode'] ?? 'require');
+        $config['host'] = $parts['host'] ?? $config['host'];
+        $config['port'] = (string)($parts['port'] ?? $config['port']);
+        $config['dbname'] = ltrim($parts['path'] ?? '', '/');
+        $config['username'] = rawurldecode($parts['user'] ?? '');
+        $config['password'] = rawurldecode($parts['pass'] ?? '');
+        $config['sslmode'] = $query['sslmode'] ?? 'require';
     }
 }
 
