@@ -1,7 +1,7 @@
 <?php
 // Inventory Management System | DBMS Project | Author: Kainat Jameel
-require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/header.php';
 $stats = [
     'products' => pg_fetch_result(pg_query($conn, 'SELECT COUNT(*) FROM products'), 0, 0),
     'suppliers' => pg_fetch_result(pg_query($conn, 'SELECT COUNT(*) FROM suppliers'), 0, 0),
@@ -23,4 +23,4 @@ $stats = [
 <a href="../pages/sales.php"><span class="dash-icon">↗</span><strong>Sales</strong><small>Record sales and stock out</small></a>
 <a href="../reports/low_stock.php"><span class="dash-icon">!</span><strong>Low Stock Report</strong><small>View items below reorder level</small></a>
 </div></section>
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>
