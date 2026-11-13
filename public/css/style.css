@@ -1,112 +1,50 @@
-/*
-Inventory Management System
-DBMS Project
-Author: Kainat Jameel
-*/
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    color: #333;
-}
-
-.main-header {
-    background-color: #1f2937;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-.main-header h1 {
-    margin: 0 0 15px;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    padding: 8px 14px;
-    border-radius: 4px;
-}
-
-nav a:hover {
-    background-color: #374151;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 30px auto;
-}
-
-.welcome {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.dashboard-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 25px;
-}
-
-.dashboard-links a {
-    background-color: #2563eb;
-    color: white;
-    text-decoration: none;
-    padding: 12px 18px;
-    border-radius: 5px;
-}
-
-.dashboard-links a:hover {
-    background-color: #1d4ed8;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    margin-top: 20px;
-}
-
-th,
-td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-}
-
-th {
-    background-color: #e5e7eb;
-}
-
-tr:hover {
-    background-color: #f9fafb;
-}
-
-.main-footer {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: #1f2937;
-    color: white;
-    text-align: center;
-}
-
-.main-footer p {
-    margin: 5px;
-}
+/* Inventory Management System | Kainat Jameel */
+:root{--navy:#14243a;--blue:#2563eb;--ink:#172033;--muted:#667085;--line:#e5eaf1;--surface:#fff;--bg:#f4f7fb}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+.main-header{background:var(--navy);color:#fff;padding:22px max(5%,calc((100% - 1200px)/2));box-shadow:0 4px 18px #17203318}
+.main-header h1{font-size:22px;margin:0 0 14px;font-weight:750;letter-spacing:.2px}
+nav{display:flex;flex-wrap:wrap;gap:7px}
+nav a{color:#dbeafe;text-decoration:none;padding:8px 13px;border-radius:8px;font-size:14px}
+nav a:hover,nav a:focus{background:#ffffff1c;color:#fff}
+.container{width:min(1200px,92%);margin:32px auto 55px;min-height:55vh}
+.page-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}
+.page-heading h2{font-size:29px;margin:2px 0 4px;letter-spacing:-.6px}
+.page-heading p{margin:0;color:var(--muted)}
+.eyebrow{font-size:11px!important;font-weight:800;letter-spacing:1.5px;color:var(--blue)!important}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:23px;margin:18px 0;box-shadow:0 6px 22px #17203308}
+.panel h3{margin:0 0 18px;font-size:17px}
+.data-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.data-form label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:650;color:#344054}
+.data-form input,.data-form select{width:100%;min-height:43px;padding:10px 12px;border:1px solid #d0d7e2;border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-weight:400;outline:none}
+.data-form input:focus,.data-form select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2563eb18}
+.wide-field{grid-column:span 2}
+.form-actions{display:flex;align-items:end;gap:9px;flex-wrap:wrap}
+button,.btn-primary,.btn-light,.btn-small{font:inherit;cursor:pointer;border:0;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn-primary{background:var(--blue);color:#fff;padding:11px 17px;font-weight:700}
+.btn-primary:hover{background:#1d4ed8}
+.btn-light{background:#eef2f7;color:#344054;padding:11px 15px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.section-title h3{margin:0}
+.muted{font-size:13px;color:var(--muted)}
+.table-wrap{overflow-x:auto;margin-top:16px}
+table{width:100%;border-collapse:collapse;background:#fff;min-width:760px}
+th,td{padding:13px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:13px;white-space:nowrap}
+th{background:#f8fafc;color:#475467;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+tbody tr:hover{background:#f8fbff}
+.actions{display:flex;align-items:center;gap:7px}
+.actions form{display:inline}
+.btn-small{padding:7px 10px;background:#eaf1ff;color:#1d4ed8;font-size:12px;font-weight:700}
+.btn-danger{background:#fff0f0;color:#c62828}
+.empty{text-align:center;color:var(--muted);padding:28px}
+.notice{padding:12px 15px;border-radius:9px;margin:0 0 16px;font-size:14px}
+.notice.success{background:#eaf8ef;color:#176b39;border:1px solid #c8ecd4}
+.notice.error{background:#fff0f0;color:#a52828;border:1px solid #ffd5d5}
+.welcome{background:#fff;padding:36px;border:1px solid var(--line);border-radius:16px;text-align:center;box-shadow:0 8px 28px #17203308}
+.welcome h2{font-size:30px;margin:0 0 8px}.welcome p{color:var(--muted)}
+.dashboard-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:13px;margin-top:28px}
+.dashboard-links a{background:#f3f6fb;border:1px solid var(--line);color:#1d3557;text-decoration:none;padding:20px 15px;border-radius:12px;font-weight:700}
+.dashboard-links a:hover{background:#eaf1ff;border-color:#b8ccff;color:var(--blue)}
+.main-footer{margin-top:45px;padding:23px;background:var(--navy);color:#dbe4f0;text-align:center;font-size:13px}
+.main-footer p{margin:4px}
+@media(max-width:760px){.container{width:94%;margin:22px auto 40px}.main-header{padding:18px 4%}.main-header h1{font-size:19px}.page-heading h2{font-size:25px}.panel{padding:16px}.data-form{grid-template-columns:1fr}.wide-field{grid-column:auto}.form-actions{align-items:stretch}.form-actions>*{flex:1}.welcome{padding:25px 17px}}
