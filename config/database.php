@@ -15,9 +15,7 @@ $config = [
 $localConfig = __DIR__ . '/database.local.php';
 if (file_exists($localConfig)) {
     $local = require $localConfig;
-    if (is_array($local)) {
-        $config = array_merge($config, $local);
-    }
+    if (is_array($local)) $config = array_merge($config, $local);
 }
 
 foreach (['host', 'dbname', 'username', 'password'] as $required) {
@@ -27,15 +25,16 @@ foreach (['host', 'dbname', 'username', 'password'] as $required) {
     }
 }
 
-$connString = sprintf(
-    'host=%s port=%s dbname=%s user=%s password=%s sslmode=%s',
-    str_replace(['\\', "'"], ['\\\\', "\\'"], $config['host']),
-    $config['port'],
-    str_replace(['\\', "'"], ['\\\\', "\\'"], $config['dbname']),
-    str_replace(['\\', "'"], ['\\\\', "\\'"], $config['username']),
-    str_replace(['\\', "'"], ['\\\\', "\\'"], $config['password']),
-    $config['sslmode']
-);
+function db_conn_value($value) {
+    return "'" . str_replace(["\\", "'"], ["\\\\", "\\'"], (string)$value) . "'";
+}
+
+$connString = 'host=' . db_conn_value($config['host'])
+    . ' port=' . db_conn_value($config['port'])
+    . ' dbname=' . db_conn_value($config['dbname'])
+    . ' user=' . db_conn_value($config['username'])
+    . ' password=' . db_conn_value($config['password'])
+    . ' sslmode=' . db_conn_value($config['sslmode']);
 
 $conn = @pg_connect($connString);
 if (!$conn) {
