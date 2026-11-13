@@ -1,0 +1,9 @@
+# Local secrets and environment files
+/config/database.local.php
+.env
+.env.*
+!.env.example
+
+# Local/editor files
+.DS_Store
+Thumbs.db
