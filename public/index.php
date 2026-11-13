@@ -17,10 +17,10 @@ $stats = [
 <div class="stat-card"><span>Stock Value</span><strong>Rs. <?=number_format((float)$stats['stock_value'],2)?></strong><small>Current inventory value</small></div>
 </section>
 <section class="panel"><h3>Manage Your Inventory</h3><div class="dashboard-links">
-<a href="/pages/products.php"><span class="dash-icon">▦</span><strong>Products</strong><small>Add, edit and manage products</small></a>
-<a href="/pages/suppliers.php"><span class="dash-icon">♙</span><strong>Suppliers</strong><small>Manage supplier contacts</small></a>
-<a href="/pages/purchases.php"><span class="dash-icon">＋</span><strong>Purchases</strong><small>Record incoming stock</small></a>
-<a href="/pages/sales.php"><span class="dash-icon">↗</span><strong>Sales</strong><small>Record sales and stock out</small></a>
-<a href="/reports/low_stock.php"><span class="dash-icon">!</span><strong>Low Stock Report</strong><small>View items below reorder level</small></a>
+<a href="../pages/products.php"><span class="dash-icon">▦</span><strong>Products</strong><small>Add, edit and manage products</small></a>
+<a href="../pages/suppliers.php"><span class="dash-icon">♙</span><strong>Suppliers</strong><small>Manage supplier contacts</small></a>
+<a href="../pages/purchases.php"><span class="dash-icon">＋</span><strong>Purchases</strong><small>Record incoming stock</small></a>
+<a href="../pages/sales.php"><span class="dash-icon">↗</span><strong>Sales</strong><small>Record sales and stock out</small></a>
+<a href="../reports/low_stock.php"><span class="dash-icon">!</span><strong>Low Stock Report</strong><small>View items below reorder level</small></a>
 </div></section>
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
