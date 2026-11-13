@@ -36,8 +36,16 @@ $connString = 'host=' . db_conn_value($config['host'])
     . ' password=' . db_conn_value($config['password'])
     . ' sslmode=' . db_conn_value($config['sslmode']);
 
-$conn = @pg_connect($connString);
+$connectionWarning = null;
+set_error_handler(function ($severity, $message) use (&$connectionWarning) {
+    $connectionWarning = $message;
+    return true;
+});
+$conn = pg_connect($connString);
+restore_error_handler();
+
 if (!$conn) {
+    error_log('Inventory database connection error: ' . ($connectionWarning ?: 'Unknown PostgreSQL connection error'));
     http_response_code(500);
     exit('Database connection failed. Check the hosting database settings.');
 }
