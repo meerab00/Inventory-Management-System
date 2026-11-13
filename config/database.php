@@ -1,6 +1,6 @@
 <?php
 // Inventory Management System - PostgreSQL connection
-// Author: Kainat Jameel
+// Supports Hostless DATABASE_URL and individual DB_* environment variables.
 
 $config = [
     'host' => getenv('DB_HOST') ?: '',
@@ -8,8 +8,29 @@ $config = [
     'dbname' => getenv('DB_NAME') ?: '',
     'username' => getenv('DB_USER') ?: '',
     'password' => getenv('DB_PASSWORD') ?: '',
-    'sslmode' => getenv('DB_SSLMODE') ?: 'prefer',
+    'sslmode' => getenv('DB_SSLMODE') ?: 'require',
 ];
+
+// Hostless provides DATABASE_URL. Use it when individual DB_* values are not set.
+$databaseUrl = getenv('DATABASE_URL') ?: '';
+if ($databaseUrl !== '' && (
+    $config['host'] === '' || $config['dbname'] === '' ||
+    $config['username'] === '' || $config['password'] === ''
+)) {
+    $parts = parse_url($databaseUrl);
+    if (is_array($parts)) {
+        $query = [];
+        if (!empty($parts['query'])) {
+            parse_str($parts['query'], $query);
+        }
+        $config['host'] = $config['host'] ?: ($parts['host'] ?? '');
+        $config['port'] = ($config['port'] !== '5432') ? $config['port'] : (string)($parts['port'] ?? '5432');
+        $config['dbname'] = $config['dbname'] ?: ltrim($parts['path'] ?? '', '/');
+        $config['username'] = $config['username'] ?: rawurldecode($parts['user'] ?? '');
+        $config['password'] = $config['password'] ?: rawurldecode($parts['pass'] ?? '');
+        $config['sslmode'] = getenv('DB_SSLMODE') ?: ($query['sslmode'] ?? 'require');
+    }
+}
 
 // Local development may use an untracked config file.
 $localConfig = __DIR__ . '/database.local.php';
@@ -20,13 +41,14 @@ if (file_exists($localConfig)) {
 
 foreach (['host', 'dbname', 'username', 'password'] as $required) {
     if ($config[$required] === '') {
+        error_log('Inventory database configuration is missing: ' . $required);
         http_response_code(500);
-        exit('Database configuration is incomplete. Set the required environment variables.');
+        exit('Database configuration is incomplete. Check the hosting database settings.');
     }
 }
 
 function db_conn_value($value) {
-    return "'" . str_replace(["\\", "'"], ["\\\\", "\\'"], (string)$value) . "'";
+    return "'" . str_replace(["\\\\", "'"], ["\\\\\\\\", "\\'"], (string)$value) . "'";
 }
 
 $connString = 'host=' . db_conn_value($config['host'])
